@@ -34,7 +34,7 @@ class Human:
 
 
 @dataclass
-class Staff:
+class People:
     people: List[Human] = field(default_factory=lambda: [])
     def add(self, name: str, zodiac: str, year: str) -> None:
         self.people.append(
@@ -139,7 +139,7 @@ if __name__ == '__main__':
         level=logging.INFO
     )
 
-    staff = Staff()
+    schedule = People()
 
     while True:
         try:
@@ -154,18 +154,18 @@ if __name__ == '__main__':
                     zodiac = input("Знак зодиака: ")
                     year = input("Дата рождения ")
                     # Добавить человека.
-                    staff.add(name, zodiac, year)
+                    schedule.add(name, zodiac, year)
                     logging.info(
                     f"Добавлен человек: {name}, {zodiac}, "
                     f"с датой рождения {year}")
             elif command == 'list':
                     # Вывести список.
-                    print(staff)
+                    print(schedule)
                     logging.info("Список людей.")
             elif command.startswith('select '):
                     parts = command.split(maxsplit=1)
                     # Запросить людей.
-                    selected = staff.select()
+                    selected = schedule.select()
                     # Вывести результаты запроса.
                     if selected:
                         for idx, human in enumerate(selected, 1):
@@ -185,13 +185,13 @@ if __name__ == '__main__':
                     # Разбить команду на части для имени файла.
                     parts = command.split(maxsplit=1)
                     # Загрузить данные из файла.
-                    staff.load(parts[1])
+                    schedule.load(parts[1])
                     logging.info(f"Загружены данные из файла {parts[1]}.")
             elif command.startswith('save '):
                     # Разбить команду на части для имени файла.
                     parts = command.split(maxsplit=1)
                     # Сохранить данные в файл.
-                    staff.save(parts[1])
+                    schedule.save(parts[1])
                     logging.info(f"Сохранены данные в файл {parts[1]}.")
             elif command == 'help':
                     # Вывести справку о работе с программой.
